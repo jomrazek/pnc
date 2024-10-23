@@ -271,7 +271,10 @@ public class BuildTask {
                     .orElse(null);
         }
 
-        ProductMilestone milestone = productMilestone;
+        ProductMilestone milestone = null;
+        if (buildOptions != null && !buildOptions.isTemporaryBuild()) {
+            milestone = productMilestone;
+        }
         if (milestone != null && milestone.getEndDate() != null) {
             userLog.warn(
                     "Not using current milestone {} for build task {}, because the milestone is closed.",

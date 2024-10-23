@@ -33,7 +33,7 @@ public class ResponseUtils {
         long stopTime = System.currentTimeMillis() + TimeUnit.MILLISECONDS.convert(timeout, timeUnit);
         do {
             try {
-                TimeUnit.MILLISECONDS.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(1500);
             } catch (InterruptedException e) {
                 throw new AssertionError("Unexpected interruption", e);
             }
