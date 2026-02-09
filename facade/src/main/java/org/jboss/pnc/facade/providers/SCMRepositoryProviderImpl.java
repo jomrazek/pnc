@@ -290,15 +290,10 @@ public class SCMRepositoryProviderImpl
             throw new InvalidEntityException(
                     "Internal repository url has to start with: <protocol>://" + internalScmAuthority
                             + " followed by a repository name or match the pattern: " + REPOSITORY_NAME_PATTERN);
-        } else if (usingGitlabButNotScpFormat(internalRepoUrl)) {
+        } else if (usingGithubButNotScpFormat(internalRepoUrl)) {
             log.info("Invalid internal repo url: We only allow internal gitlab repo url in scp format");
             throw new InvalidEntityException(
                     "Internal Gitlab repository url has to follow format: git@<server>:<path to git repo>.git");
-        } else if (internalRepoUrl.contains("/gerrit/")) {
-            log.info("Invalid internal repo url: " + internalRepoUrl);
-            throw new InvalidEntityException(
-                    "Incorrect format of internal repository. Internal repository"
-                            + " url should not contain '/gerrit/' part of the url");
         } else if (internalRepoUrl.split("://")[0].contains("http")) {
             log.info("Invalid internal repo url: " + internalRepoUrl);
             throw new InvalidEntityException(
@@ -492,13 +487,13 @@ public class SCMRepositoryProviderImpl
      * @param internalRepoUrl internal url to validate
      * @return true if using gitlab internal url *and* the internal url is not in scp format
      */
-    static boolean usingGitlabButNotScpFormat(String internalRepoUrl) {
+    static boolean usingGithubButNotScpFormat(String internalRepoUrl) {
 
         try {
             ScmUrlGeneratorProvider.SCMProvider provider = ScmUrlGeneratorProvider
                     .determineInternalScmProvider(internalRepoUrl);
 
-            if (ScmUrlGeneratorProvider.SCMProvider.GITLAB != provider) {
+            if (ScmUrlGeneratorProvider.SCMProvider.GITHUB != provider) {
                 // not using gitlab
                 return false;
             }

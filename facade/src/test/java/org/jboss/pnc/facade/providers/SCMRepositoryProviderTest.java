@@ -171,7 +171,7 @@ public class SCMRepositoryProviderTest extends AbstractIntIdProviderTest<Reposit
     }
 
     @Test
-    public void testStoreNewRepositoryWithGitlabInternalUrlInScpFormatShouldSucceed() {
+    public void testStoreNewRepositoryWithGitlabInternalUrlInScpFormatShouldFail() {
 
         // when
         SCMRepository toCreate = createNewSCMRepository(
